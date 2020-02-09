@@ -1,0 +1,32 @@
+ {% extends "layout.html" %}
+{% block content %}
+
+    <h2>Add exercise</h2>
+    <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.exercise.label }}<br>
+        {{ form.exercise(size=32) }}
+    </p>
+
+    <p>
+        {{ form.weight.label }}<br>
+        {{ form.weight(size=32) }}
+    </p>
+
+    <p>{{ form.submit() }}</p>
+    </form>
+
+    {% for post in posts %}
+        <div class="card w-75">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.exercise }}</h5>
+                <p class="card-text">{{ post.weight }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}
+
+
+
+  
