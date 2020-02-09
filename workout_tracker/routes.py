@@ -15,3 +15,4 @@ def home():
         return redirect(url_for('home'))  
     posts = Post.query.all()  
     return render_template('home.html', posts=posts, form=form)
+
