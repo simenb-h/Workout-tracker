@@ -7,18 +7,20 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
 </head>
 <body>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
+        <div class=flashes>
             {% for message in messages %}
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success " role="alert">
                 {{ message }}
             </div>
             {% endfor %}
+        </div>
         {% endif %}
     {% endwith %}
 

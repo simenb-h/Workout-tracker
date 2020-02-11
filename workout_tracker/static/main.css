@@ -3,6 +3,25 @@ body {
     color: #333333;
     margin-top: 2rem;
     margin-left: 5rem;
+    margin-bottom: 5rem;
+  }
+
+
+  .card {
+    display:inline-block;
+    margin: 5px;
+  }
+
+  .btn {
+    margin: 5px;
+
+  }
+  .alert {
+    display:inline-block;
+  }
+
+  .form-group {
+    display: inline-block;
   }
   
   h1, h2, h3, h4, h5, h6 {

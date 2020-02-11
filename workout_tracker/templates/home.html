@@ -1,27 +1,46 @@
- {% extends "layout.html" %}
+{% extends "layout.html" %}
 {% block content %}
+
 
     <h2>Add exercise</h2>
     <form method="POST" action="">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.exercise.label }}<br>
-        {{ form.exercise(size=32) }}
-    </p>
+        {{ form.hidden_tag() }}
 
-    <p>
-        {{ form.weight.label }}<br>
-        {{ form.weight(size=32) }}
-    </p>
+        <div class="form-group">
+        {{ form.exercise.label(class="form-control-label") }}<br>
+        {{ form.exercise(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+        {{ form.weight.label(class="form-control-label") }}<br>
+        {{ form.weight(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+        {{ form.category.label(class="form-control-label") }}<br>
+        {{ form.category(class="form-control form-control-lg") }}
+        </div>
 
-    <p>{{ form.submit() }}</p>
-    </form>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+      </form>
 
     {% for post in posts %}
         <div class="card w-75">
             <div class="card-body">
-                <h5 class="card-title">{{ post.exercise }}</h5>
-                <p class="card-text">{{ post.weight }}</p>
+                <!--<h5 class="card-title">{{ post.exercise }}</h5>-->
+               <h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise )}}">{{ post.exercise }}</a></h2>
+                <!--<h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>-->
+                <small class="text-muted">Date: {{ post.date_posted.strftime('%d-%m-%Y') }}</small>
+                <p class="card-text">{{ post.category }}, {{ post.weight }} kg</p>
+                
+                <div>
+                    <!--<button type="button" class="btn btn-danger btn-sm m-1 ">Delete</button>-->
+                    <form action="{{ url_for('delete', post_id=post.id) }}" method="POST">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                </div>
+
+
             </div>
         </div>
     {% endfor %}
