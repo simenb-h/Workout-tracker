@@ -7,17 +7,21 @@
         {{ form.hidden_tag() }}
 
         <div class="form-group">
-        {{ form.exercise.label(class="form-control-label") }}<br>
-        {{ form.exercise(class="form-control form-control-lg") }}
+            {{ form.exercise.label(class="form-control-label") }}<br>
+            {{ form.exercise(class="form-control form-control-lg") }}
         </div>
         <div class="form-group">
-        {{ form.weight.label(class="form-control-label") }}<br>
-        {{ form.weight(class="form-control form-control-lg") }}
+            {{ form.weight.label(class="form-control-label") }}<br>
+            {{ form.weight(class="form-control form-control-lg") }}
         </div>
         <div class="form-group">
-        {{ form.category.label(class="form-control-label") }}<br>
-        {{ form.category(class="form-control form-control-lg") }}
+            {{ form.category.label(class="form-control-label") }}<br>
+            {{ form.category(class="form-control form-control-lg") }}
         </div>
+        <div class="form-group ">
+            {{ form.date_posted.label(class="form-control-label") }}<br>
+            {{ form.date_posted(class="form-control form-control-lg") }}
+            </div>
 
         <div class="form-group">
             {{ form.submit(class="btn btn-primary") }}
@@ -38,10 +42,11 @@
                 <!--<h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>-->
                 <small class="text-muted">Date: {{ post.date_posted.strftime('%d-%m-%Y') }}</small>
                 <p class="card-text">{{ post.category }}, {{ post.weight }} kg</p>
-                <p>Antall: {{ }} </p>
+                <p>Antall: {{ num.count('{{post.exercise}}')}}</p>
             </div>
         </div>
     {% endfor %}
+    
 {% endblock content %}
 
 

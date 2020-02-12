@@ -13,17 +13,16 @@ def home():
         db.session.add(post) 
         db.session.commit()
         flash('Success')
-        return redirect(url_for('home'))  
-    #posts = Post.query.filter_by(weight = 20)
-    #posts = Post.query.order_by('date_posted').limit(1)  
-    posts = Post.query.group_by('exercise').order_by(desc('date_posted'))
+        return redirect(url_for('home'))
+        
+    all = Post.query.all()
     num = []
-    for post in posts: 
-        num.append(post.exercise)
+    for a in all: 
+        num.append(a.exercise)
     num = [str(items) for items in num]
-    print(num)
-    #posts = Post.query.all()  
-    return render_template('home.html', posts=posts, form=form)
+   
+    posts = Post.query.group_by('exercise').order_by(desc('date_posted'))
+    return render_template('home.html', num = num, posts=posts, form=form)
 
 @app.route("/home/delete/<int:post_id>", methods = ['POST'])
 def delete(post_id):
