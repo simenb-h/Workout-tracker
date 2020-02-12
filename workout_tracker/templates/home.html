@@ -25,22 +25,20 @@
       </form>
 
     {% for post in posts %}
-        <div class="card w-75">
+        <div class="card w-50">
             <div class="card-body">
-                <!--<h5 class="card-title">{{ post.exercise }}</h5>-->
-               <h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise )}}">{{ post.exercise }}</a></h2>
-                <!--<h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>-->
-                <small class="text-muted">Date: {{ post.date_posted.strftime('%d-%m-%Y') }}</small>
-                <p class="card-text">{{ post.category }}, {{ post.weight }} kg</p>
-                
                 <div>
                     <!--<button type="button" class="btn btn-danger btn-sm m-1 ">Delete</button>-->
                     <form action="{{ url_for('delete', post_id=post.id) }}" method="POST">
-                        <input type="submit" class="btn btn-danger" value="Delete">
+                        <input type="submit" class="btn btn-danger float-right" value="Delete">
                     </form>
                 </div>
-
-
+                <!--<h5 class="card-title">{{ post.exercise }}</h5>-->
+                <h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise )}}">{{ post.exercise }}</a></h2>
+                <!--<h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>-->
+                <small class="text-muted">Date: {{ post.date_posted.strftime('%d-%m-%Y') }}</small>
+                <p class="card-text">{{ post.category }}, {{ post.weight }} kg</p>
+                <p>Antall: {{ }} </p>
             </div>
         </div>
     {% endfor %}
