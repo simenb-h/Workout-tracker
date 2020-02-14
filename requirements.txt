@@ -32,3 +32,4 @@ Werkzeug==1.0.0
 wrapt==1.11.2
 WTForms==2.2.1
 gunicorn==19.10.0
+psycopg2==2.8.4
