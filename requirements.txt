@@ -8,7 +8,6 @@ enum34==1.1.6
 Flask==1.1.1
 Flask-SQLAlchemy==2.4.1
 Flask-WTF==0.14.3
-futures==3.3.0
 gyp==0.1
 idna==2.6
 ipaddress==1.0.17
