@@ -6,7 +6,7 @@ class Post(db.Model):
     exercise = db.Column(db.String(20), nullable=False)
     weight = db.Column(db.Integer, nullable=False)
     category = db.Column(db.String(20))
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     
     def __repr__(self):
         return '<Post %r' % self.exercise
