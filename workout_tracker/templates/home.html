@@ -26,26 +26,93 @@
         </div>
       </form>
 
-    {% for post in posts %}
-    <!--    {% if post.author == current_user %}-->
+    <!--Using cards to showcase workouts-->
+    <!--{% for post in posts %}
+        {% if post.author == current_user %}
             <div class="card w-50">
                 <div class="card-body">
                     <div>
-                        <!--<button type="button" class="btn btn-danger btn-sm m-1 ">Delete</button>-->
+                        <button type="button" class="btn btn-danger btn-sm m-1 ">Delete</button>
                         <form action="{{ url_for('delete', post_id=post.id) }}" method="POST">
                             <input type="submit" class="btn btn-danger float-right" value="Delete">
                         </form>
                     </div>
-                    <!--<h5 class="card-title">{{ post.exercise }}</h5>-->
+                    <h5 class="card-title">{{ post.exercise }}</h5>
                     <h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise )}}">{{ post.exercise }}</a></h2>
-                    <!--<h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>-->
+                    <h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>
                     <small class="text-muted">Date: {{ post.date_posted.strftime('%d-%m-%Y') }}</small>
                     <p class="card-text">{{ post.category }}, {{ post.weight }} kg</p>
                     <p>Antall: </p>
                 </div>
             </div>
-    <!--    {% endif %} -->
+    {% endif %}
+    {% endfor %}-->
+
+
+<!--Table-->
+<table class="table table-hover">
+
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Weight</th>
+        <th scope="col">Category</th>
+        <th scope="col">Date</th>  
+        <th scope="col">Delete Last</th> 
+        <th scope="col">Add New</th> 
+
+    </tr>
+    </thead>
+    {% for post in posts %}
+
+    <tbody>
+        <tr>
+          <th class=".text-primary" scope="row"><h4><a href="{{ url_for('stats', exercise=post.exercise )}}">{{ post.exercise }}</a></h4></th>
+          <td scope="row">{{ post.weight }} kg</th>
+          <td scope="row">{{ post.category }}</th>
+          <td scope="row">{{ post.date_posted.strftime('%d-%m-%Y') }}</th>  
+          <td scope="row">
+            <form action="{{ url_for('delete', post_id=post.id) }}" method="POST">
+                <input type="submit" class="btn btn-danger btn-sm m-1" value="Delete">
+            </form>
+          </td>  
+          <td scope="row">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Add {{ post.exercise }}</button>
+          </td>  
+      </tr>
+    </tbody>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add {{post.exercise}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <form method="POST" action='/{{post.exercise}}/{{post.category}}'>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.weight.label(class="form-control-label") }}<br>
+                    {{ form.weight(class="form-control form-control-lg") }}
+                </div>
+     
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
     {% endfor %}
+  </table>
+
 
 {% else %}
     <p>You must log in to post and see your workouts</p>
@@ -55,8 +122,12 @@
 
 
 {% endif %}
+
+
+
     
 {% endblock content %}
+
 
 
 

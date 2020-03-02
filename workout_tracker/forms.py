@@ -11,6 +11,10 @@ class AddForm(FlaskForm):
     #date_posted = DateField('Date', format='%d-%m-%Y', default=datetime.utcnow)
     submit = SubmitField('Send')
 
+class UpdateForm(FlaskForm):
+    weight = StringField('Weight',validators=[DataRequired()])
+    submit = SubmitField('Send')
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])

@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, flash, request
-from workout_tracker.forms import AddForm, RegistrationForm, LoginForm
+from workout_tracker.forms import AddForm, RegistrationForm, LoginForm, UpdateForm
 from workout_tracker.models import Post, User
 from workout_tracker import app, db, bcrypt
 from sqlalchemy import desc
@@ -15,15 +15,23 @@ def home():
         db.session.commit()
         flash('Success')
         return redirect(url_for('home'))
-        
-
-
+    
     if current_user.is_authenticated:
         posts = Post.query.filter_by(author = current_user).group_by('exercise').order_by(desc('date_posted'))
     else:
         posts = Post.query.group_by('exercise').order_by(desc('date_posted'))
     return render_template('home.html', posts=posts, form=form)
 
+@app.route("/<string:exercise>/<string:category>")
+def add(exercise, category):
+    form = AddForm()
+    post = Post(exercise=exercise, weight=form.weight.data, category=category, author = current_user)
+    db.session.add(post) 
+    db.session.commit()
+    flash('Successful update')
+    return redirect(url_for('home'))
+
+    
 @app.route("/register", methods=['GET', 'POST'])
 def register():
         if current_user.is_authenticated:
@@ -72,6 +80,7 @@ def stat_delete(post_id):
     db.session.commit()
     flash("Deleted")
     return redirect(url_for('stats', exercise=post.exercise ))
+
 
 @app.route("/stats/<string:exercise>")
 def stats(exercise):
