@@ -3,10 +3,15 @@ from flask_migrate import Migrate, MigrateCommand
 from workout_tracker import db, app
 
 
-manager = Manager(app)
 migrate = Migrate(app, db)
+manager = Manager(app)
+
 
 manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
+
+
+
+

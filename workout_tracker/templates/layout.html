@@ -45,17 +45,20 @@
 
     {% block content %}{% endblock %}
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class=flashes>
-            {% for message in messages %}
-                <div class="alert alert-success " role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class=flashes>
+    {% for category, message in messages %}
+    <div class="alert alert-{{category}} " role="alert">
+        {{ message }}
+    </div>   
+     {% endfor %}
+    </div>   
+
   {% endif %}
-  {% endwith %}
+{% endwith %}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

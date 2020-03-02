@@ -2,25 +2,25 @@ from flask import render_template, url_for, redirect, flash, request
 from workout_tracker.forms import AddForm, RegistrationForm, LoginForm, UpdateForm
 from workout_tracker.models import Post, User
 from workout_tracker import app, db, bcrypt
-from sqlalchemy import desc
+from sqlalchemy import desc, text
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/", methods = ['GET','POST'])
 @app.route("/home", methods = ['GET','POST'])
 def home():
-    form = AddForm()
-    if form.validate_on_submit():
-        post = Post(exercise=form.exercise.data, weight=form.weight.data, category=form.category.data, author = current_user)
-        db.session.add(post) 
-        db.session.commit()
-        flash('Success')
-        return redirect(url_for('home'))
-    
     if current_user.is_authenticated:
-        posts = Post.query.filter_by(author = current_user).group_by('exercise').order_by(desc('date_posted'))
+        form = AddForm()
+        if form.validate_on_submit():
+            post = Post(exercise=form.exercise.data, weight=form.weight.data, category=form.category.data, author = current_user)
+            db.session.add(post) 
+            db.session.commit()
+            flash('Success', 'success')
+            return redirect(url_for('home'))
+        #posts = Post.query.filter_by(author = current_user).group_by('exercise').order_by(desc('date_posted'))
+        posts = Post.query.filter_by(author = current_user).order_by(desc('date_posted'))
+        return render_template('home.html', posts=posts, form=form)
     else:
-        posts = Post.query.group_by('exercise').order_by(desc('date_posted'))
-    return render_template('home.html', posts=posts, form=form)
+        return redirect(url_for('login'))
 
 @app.route("/<string:exercise>/<string:category>")
 def add(exercise, category):
@@ -28,7 +28,7 @@ def add(exercise, category):
     post = Post(exercise=exercise, weight=form.weight.data, category=category, author = current_user)
     db.session.add(post) 
     db.session.commit()
-    flash('Successful update')
+    flash('Successful update', 'success')
     return redirect(url_for('home'))
 
     
@@ -42,7 +42,7 @@ def register():
             user = User(username = form.username.data,email=form.email.data, password = hashed_password)
             db.session.add(user) 
             db.session.commit()
-            flash('Success')
+            flash('Success', 'success')
             return redirect(url_for('login'))  
         return render_template('register.html', title='Register', form=form)
 
@@ -70,7 +70,7 @@ def delete(post_id):
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
-    flash("Deleted")
+    flash("Deleted", 'danger')
     return redirect(url_for('home'))
 
 @app.route("/home/stats/<int:post_id>", methods = ['POST'])
@@ -78,7 +78,7 @@ def stat_delete(post_id):
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
-    flash("Deleted")
+    flash("Deleted",'danger')
     return redirect(url_for('stats', exercise=post.exercise ))
 
 
