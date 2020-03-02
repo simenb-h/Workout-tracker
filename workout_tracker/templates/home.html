@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
+
 {% block content %}
 
+{% if current_user.is_authenticated %}
 
     <h2>Add exercise</h2>
     <form method="POST" action="">
@@ -25,23 +27,34 @@
       </form>
 
     {% for post in posts %}
-        <div class="card w-50">
-            <div class="card-body">
-                <div>
-                    <!--<button type="button" class="btn btn-danger btn-sm m-1 ">Delete</button>-->
-                    <form action="{{ url_for('delete', post_id=post.id) }}" method="POST">
-                        <input type="submit" class="btn btn-danger float-right" value="Delete">
-                    </form>
+    <!--    {% if post.author == current_user %}-->
+            <div class="card w-50">
+                <div class="card-body">
+                    <div>
+                        <!--<button type="button" class="btn btn-danger btn-sm m-1 ">Delete</button>-->
+                        <form action="{{ url_for('delete', post_id=post.id) }}" method="POST">
+                            <input type="submit" class="btn btn-danger float-right" value="Delete">
+                        </form>
+                    </div>
+                    <!--<h5 class="card-title">{{ post.exercise }}</h5>-->
+                    <h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise )}}">{{ post.exercise }}</a></h2>
+                    <!--<h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>-->
+                    <small class="text-muted">Date: {{ post.date_posted.strftime('%d-%m-%Y') }}</small>
+                    <p class="card-text">{{ post.category }}, {{ post.weight }} kg</p>
+                    <p>Antall: </p>
                 </div>
-                <!--<h5 class="card-title">{{ post.exercise }}</h5>-->
-                <h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise )}}">{{ post.exercise }}</a></h2>
-                <!--<h2><a class="article-title" href="{{ url_for('stats', exercise=post.exercise) }}">{{ post.exercise }}</a></h2>-->
-                <small class="text-muted">Date: {{ post.date_posted.strftime('%d-%m-%Y') }}</small>
-                <p class="card-text">{{ post.category }}, {{ post.weight }} kg</p>
-                <p>Antall: {{ num.count('{{post.exercise}}')}}</p>
             </div>
-        </div>
+    <!--    {% endif %} -->
     {% endfor %}
+
+{% else %}
+    <p>You must log in to post and see your workouts</p>
+    <a href="{{ url_for('login')}}">Log in</a>
+    <br>
+    <a href="{{ url_for('register')}}">Register</a>
+
+
+{% endif %}
     
 {% endblock content %}
 
