@@ -1,7 +1,13 @@
 
 Click==7.0
+cryptography==2.1.4
 
 Flask==1.1.1
+Flask-Bcrypt==0.7.1
+flask-heroku==0.1.9
+Flask-Login==0.5.0
+Flask-Migrate==2.5.2
+Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.1
 Flask-WTF==0.14.3
 
@@ -13,3 +19,5 @@ WTForms==2.2.1
 gunicorn==19.10.0
 psycopg2==2.8.4
 flask-heroku==0.1.9
+Jinja2==2.11.1
+pycrypto==2.6.1
