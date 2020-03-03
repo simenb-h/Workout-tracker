@@ -1,1 +1,1 @@
-web: gunicorn app:workout_tracker
+web: gunicorn workout_tracker:app
