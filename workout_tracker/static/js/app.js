@@ -1,16 +1,23 @@
-window.addEventListener('load', e => {
-    new PWAConfApp();
-    registerSW(); 
-  });
+const butInstall = document.getElementById('butInstall');
 
-async function registerSW() { 
-if ('serviceWorker' in navigator) { 
-    try {
-    await navigator.serviceWorker.register('./sw.js'); 
-    } catch (e) {
-    alert('ServiceWorker registration failed. Sorry about that.'); 
-    }
-} else {
-    document.querySelector('.alert').removeAttribute('hidden'); 
+/* Put code here */
+
+
+
+/* Only register a service worker if it's supported */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js');
 }
+
+/**
+ * Warn the page must be served over HTTPS
+ * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
+ * Installability requires a service worker with a fetch event handler, and
+ * if the page isn't served over HTTPS, the service worker won't load.
+ */
+if (window.location.protocol === 'http:') {
+  const requireHTTPS = document.getElementById('requireHTTPS');
+  const link = requireHTTPS.querySelector('a');
+  link.href = window.location.href.replace('http://', 'https://');
+  requireHTTPS.classList.remove('hidden');
 }
