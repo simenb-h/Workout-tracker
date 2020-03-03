@@ -11,7 +11,7 @@ def home():
     if current_user.is_authenticated:
         form = AddForm()
         if form.validate_on_submit():
-            post = Post(exercise=form.exercise.data, weight=form.weight.data, category=form.category.data, author = current_user)
+            post = Post(exercise=form.exercise.data.capitalize(), weight=form.weight.data, category=form.category.data, author = current_user)
             db.session.add(post) 
             db.session.commit()
             flash('Success', 'success')
