@@ -1,7 +1,7 @@
 {
   "name": "Workout-tracker",
   "short_name": "Workout-t",
-  "start_url": ".",
+  "start_url": "/login",
   "display": "standalone",
   "background_color": "#2A3443",
   "description": "A workout tracking app",
