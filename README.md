@@ -6,6 +6,7 @@ https://gist.github.com/bradtraversy/0029d655269c8a972df726ed0ac56b88
 
 ### Todo
 
+- [ ] Turn web app into PWA 
 - [x] Change db
 - [x] Add register
 - [x] Add login
