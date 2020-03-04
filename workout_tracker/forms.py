@@ -7,7 +7,7 @@ from workout_tracker.models import User
 class AddForm(FlaskForm):
     exercise = StringField('Exercise', validators=[DataRequired(), Length(min=2, max=20)])
     weight = StringField('Weight',validators=[DataRequired()])
-    category = SelectField('Category', choices=[('arms', 'Arms'), ('legs', 'Legs'), ('stomach', 'Stomach')])
+    category = SelectField('Category', choices=[('Arms', 'Arms'), ('Legs', 'Legs'), ('Stomach', 'Stomach'), ('Back', 'Back'), ('Chest', 'Chest'), ('Shoulders', 'Shoulders')])
     #date_posted = DateField('Date', format='%d-%m-%Y', default=datetime.utcnow)
     submit = SubmitField('Send')
 
